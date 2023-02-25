@@ -41,7 +41,7 @@ async function handler(req, res) {
 
   // Found the name.
   // Sends a HTTP success code
-  res.status(200).json({ data: `${body.first} ${body.last}` })
+  res.status(200).json({ data: `${body.first} ${body.last}`, response })
 }
 
 export default handler;
