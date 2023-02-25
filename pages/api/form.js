@@ -9,9 +9,9 @@ async function handler(req, res) {
   console.log('body: ', body)
   const auth = new google.auth.GoogleAuth({
     credentials: {
-      client_email: process.env.CLIENT_EMAIL,
-      client_id: process.env.CLIENT_ID,
-      private_key: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.NEXT_PUBLIC_CLIENT_EMAIL,
+      client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+      private_key: process.env.NEXT_PUBLIC_PRIVATE_KEY.replace(/\\n/g, '\n'),
     },
     scopes: [
       'https://www.googleapis.com/auth/drive',
@@ -25,7 +25,7 @@ async function handler(req, res) {
     version: 'v4',
   });
   const response = await sheets.spreadsheets.values.append({
-    spreadsheetId: process.env.DATABASE_ID,
+    spreadsheetId: process.env.NEXT_PUBLIC_DATABASE_ID,
     range: 'Sheet1!A1:B2',
     valueInputOption: 'USER_ENTERED',
     requestBody: {
