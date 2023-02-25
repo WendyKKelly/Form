@@ -7,6 +7,11 @@ async function handler(req, res) {
   // Optional logging to see the responses
   // in the command line where next.js app is running.
   console.log('body: ', body)
+  if (!body.first || !body.last) {
+    // Sends a HTTP bad request error code
+    return res.status(400).json({ data: 'First or last name not found' })
+  }
+
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.NEXT_PUBLIC_CLIENT_EMAIL,
@@ -32,13 +37,7 @@ async function handler(req, res) {
       values: [[body.first, body.last]],
     },
   });
-  res.status(201).json({ message: 'It works!', response });
-  // Guard clause checks for first and last name,
-  // and returns early if they are not found
-  if (!body.first || !body.last) {
-    // Sends a HTTP bad request error code
-    return res.status(400).json({ data: 'First or last name not found' })
-  }
+
 
   // Found the name.
   // Sends a HTTP success code
